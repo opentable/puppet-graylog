@@ -15,6 +15,10 @@ class graylog::repository::apt(
     notify => Exec['apt_update'],
   }
 
+  package {'apt-transport-https':
+    ensure => 'installed',
+  }
+
   apt::source { 'graylog':
     comment  => 'The official Graylog package repository',
     location => $url,
@@ -26,8 +30,7 @@ class graylog::repository::apt(
     },
     require  => [
       File[$gpg_file],
-      Package[$apt_transport_package],
+      Package['apt-transport-https'],
     ],
-    notify   => Exec['apt_update'],
   }
 }
