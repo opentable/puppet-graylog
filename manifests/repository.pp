@@ -6,6 +6,13 @@ class graylog::repository(
   anchor { 'graylog::repository::begin': }
   anchor { 'graylog::repository::end': }
 
+  $apt_transport_package = 'apt-transport-https'
+  $gpg_file = '/etc/apt/trusted.gpg.d/graylog-keyring.gpg'
+
+  if !defined(Package[$apt_transport_package]) {
+    ensure_packages([$apt_transport_package])
+  }
+
   if $url == undef {
     $graylog_repo_url = $::osfamily ? {
       'debian' => 'https://downloads.graylog.org/repo/debian/',
