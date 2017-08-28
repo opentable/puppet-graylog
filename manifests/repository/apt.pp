@@ -30,7 +30,7 @@ class graylog::repository::apt(
     },
     require  => [
       File[$gpg_file],
-      Package['apt-transport-https'],
+      Package[$apt_transport_package],
     ],
   }
 }
