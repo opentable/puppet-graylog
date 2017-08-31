@@ -4,7 +4,6 @@ class graylog::repository::apt(
   $version,
 ) {
   $gpg_file = '/etc/apt/trusted.gpg.d/graylog-keyring.gpg'
-  $apt_transport_package = 'apt-transport-https'
 
   file { $gpg_file:
     ensure => present,
@@ -30,7 +29,6 @@ class graylog::repository::apt(
     },
     require  => [
       File[$gpg_file],
-      Package[$apt_transport_package],
     ],
   }
 }
